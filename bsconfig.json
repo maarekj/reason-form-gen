@@ -1,0 +1,29 @@
+{
+    "name": "@maarekj/reason-form-gen",
+    "namespace": true,
+    "version": "0.0.1",
+    "reason": {
+        "react-jsx": 3
+    },
+    "sources": [
+        {
+            "dir": "src",
+            "subdirs": true
+        },
+        {
+            "dir": "example",
+            "subdirs": true,
+            "type": "dev"
+        }
+    ],
+    "package-specs": {
+        "module": "commonjs",
+        "in-source": true
+    },
+    "suffix": ".bs.js",
+    "bs-dependencies": ["rescript-webapi"],
+    "bs-dev-dependencies": ["@rescript/react", "@maarekj/reason-form"],
+    "warnings": {
+        "error": "+101"
+    }
+}

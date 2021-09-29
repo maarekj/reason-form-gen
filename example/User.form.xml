@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<form xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../form.xsd">
+    <fields>
+        <Scalar name="username" type="option<string>" default="?" aze="aze" />
+        <Scalar name="lastname" type="option<string>" default="?" />
+        <Scalar name="firstname" type="option<string>" default="?" />
+        <Scalar name="gender" type="option<Gender.t>" default="?" />
+        <Scalar name="age" type="int" default="0" />
+        <List name="tags" type="string" default="list{}" empty='""' />
+        <Object name="mainAddress" type="Address.value" module="Address" empty="Address.empty" option="true" default="?" />
+        <List name="addresses" type="Address.value" module="Address" empty="Address.empty" default="list{}" />
+        <StringMap name="metadata" type="Metadata.value" module="Metadata" empty="Metadata.empty" default="Belt.Map.String.empty" />
+    </fields>
+</form>

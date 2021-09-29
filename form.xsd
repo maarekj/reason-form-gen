@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xs:schema attributeFormDefault="unqualified" elementFormDefault="qualified" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+    <xs:element name="form">
+        <xs:complexType>
+            <xs:choice maxOccurs="unbounded">
+                <xs:element name="fields" minOccurs="1" maxOccurs="1">
+                    <xs:complexType>
+                        <xs:choice maxOccurs="unbounded">
+                            <xs:element name="Scalar" minOccurs="0" maxOccurs="unbounded">
+                                <xs:complexType>
+                                    <xs:attribute name="name" type="xs:string" use="required" />
+                                    <xs:attribute name="type" type="xs:string" use="required" />
+                                    <xs:attribute name="default" type="xs:string" use="optional" />
+                                </xs:complexType>
+                            </xs:element>
+                            <xs:element name="List" minOccurs="0" maxOccurs="unbounded">
+                                <xs:complexType>
+                                    <xs:attribute name="name" type="xs:string" use="required" />
+                                    <xs:attribute name="type" type="xs:string" use="required" />
+                                    <xs:attribute name="module" type="xs:string" use="optional" />
+                                    <xs:attribute name="empty" type="xs:string" use="required" />
+                                    <xs:attribute name="default" type="xs:string" use="optional" />
+                                </xs:complexType>
+                            </xs:element>
+                            <xs:element name="Object" minOccurs="0" maxOccurs="unbounded">
+                                <xs:complexType>
+                                    <xs:attribute name="name" type="xs:string" use="required" />
+                                    <xs:attribute name="type" type="xs:string" use="required" />
+                                    <xs:attribute name="module" type="xs:string" use="required" />
+                                    <xs:attribute name="empty" type="xs:string" use="optional" />
+                                    <xs:attribute name="default" type="xs:string" use="optional" />
+                                    <xs:attribute name="option" type="xs:boolean" use="optional" />
+                                </xs:complexType>
+                            </xs:element>
+                            <xs:element name="StringMap" minOccurs="0" maxOccurs="unbounded">
+                                <xs:complexType>
+                                    <xs:attribute name="name" type="xs:string" use="required" />
+                                    <xs:attribute name="type" type="xs:string" use="required" />
+                                    <xs:attribute name="module" type="xs:string" use="required" />
+                                    <xs:attribute name="empty" type="xs:string" use="required" />
+                                    <xs:attribute name="default" type="xs:string" use="optional" />
+                                </xs:complexType>
+                            </xs:element>
+                        </xs:choice>
+                    </xs:complexType>
+                </xs:element>
+            </xs:choice>
+        </xs:complexType>
+    </xs:element>
+</xs:schema>

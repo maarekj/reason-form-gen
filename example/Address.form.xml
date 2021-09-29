@@ -1,0 +1,9 @@
+<?xml version="1.1" encoding="UTF-8"?>
+<form xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../form.xsd">
+    <fields>
+        <Scalar name="street" type="string" default='""' />
+        <Scalar name="city" type="string" default='""' />
+        <Scalar name="zipcode" type="option<string>" default="?" />
+
+    </fields>
+</form>
