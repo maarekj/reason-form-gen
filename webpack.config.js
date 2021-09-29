@@ -5,7 +5,8 @@ var config = {
     target: "node",
     mode: "development",
     entry: {
-        index: ["./example/Example_Index.bs.js"],
+        "example": ["./example/Example_Index.bs.js"],
+        "bin/reason-form-gen": ["./bin/reason-form-gen.js"],
     },
     output: {
         path: path.join(__dirname, "public", "build"),
@@ -19,7 +20,7 @@ var config = {
                 use: {
                     loader: "babel-loader",
                     options: {
-                        presets: ["env"],
+                        presets: ["@babel/preset-env"],
                     },
                 },
             },
