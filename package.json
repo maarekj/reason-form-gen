@@ -2,7 +2,7 @@
     "name": "@maarekj/reason-form-gen",
     "author": "Joseph Maarek <josephmaarek@gmail.com>",
     "license": "MIT",
-    "version": "0.0.2",
+    "version": "0.0.3",
     "scripts": {
         "start:reason": "rescript build -w",
         "start:webpack": "webpack -w",
@@ -12,7 +12,7 @@
         "build": "yarn run build:reason && yarn run build:webpack",
         "clean": "rescript clean -with-deps && rm -Rfv build/* public/build/*",
         "refmt": "rescript format -all",
-        "prepare": "install-self-peers -- --ignore-scripts"
+        "prepare": "install-self-peers -- --ignore-scripts && yarn run build"
     },
     "keywords": [
         "rescript"
