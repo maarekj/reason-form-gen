@@ -107,9 +107,12 @@ var Form = {
 
 var Value = Generated_Metadata$MaarekjReasonFormGen.Value;
 
+var Safe = Generated_Metadata$MaarekjReasonFormGen.Safe;
+
 var createFields = Generated_Metadata$MaarekjReasonFormGen.createFields;
 
 exports.Value = Value;
+exports.Safe = Safe;
 exports.createFields = createFields;
 exports.empty = empty;
 exports.validate = validate;

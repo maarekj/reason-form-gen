@@ -29,32 +29,158 @@ function generateForm(file, form) {
     return "module Value = {\n    type t = {\n" + join(Belt_List.map(form.fields, (function (field) {
                       switch (field.TAG | 0) {
                         case /* Scalar */0 :
-                            return "        " + field.name + ": " + field.type_;
+                            return field.name + ": " + field.type_;
                         case /* Object */1 :
                             var type_ = field.type_;
                             var name = field.name;
                             if (field.option) {
-                              return "        " + name + ": option<" + type_ + ">";
+                              return name + ": option<" + type_ + ">";
                             } else {
-                              return "        " + name + ": " + type_;
+                              return name + ": " + type_;
                             }
                         case /* List */2 :
-                            return "        " + field.name + ": list<" + field.type_ + ">";
+                            return field.name + ": list<" + field.type_ + ">";
                         case /* StringMap */3 :
-                            return "        " + field.name + ": Belt.Map.String.t<" + field.type_ + ">";
+                            return field.name + ": Belt.Map.String.t<" + field.type_ + ">";
                         
                       }
                     })), ",\n") + "\n    }\n\n    let make = (\n" + join(Belt_List.map(form.fields, (function (field) {
                       var match = getDefaultFromField(field);
                       var match$1 = field.name;
                       if (match !== undefined) {
-                        return "        ~" + match$1 + "=" + match;
+                        return "~" + match$1 + "=" + match;
                       } else {
-                        return "        ~" + match$1;
+                        return "~" + match$1;
                       }
                     })), ",\n") + "\n        (),\n    ) => {\n\n" + join(Belt_List.map(form.fields, (function (field) {
                       return "        " + field.name + ": " + field.name;
                     })), ",\n") + "\n    }\n}\n\ntype value = Value.t\n\n";
+  };
+  var generateModuleSafe = function (param) {
+    var hasSafe = Belt_List.some(form.fields, (function (field) {
+            if (field.safeType !== undefined) {
+              return true;
+            } else {
+              return field.safeTransform !== undefined;
+            }
+          }));
+    if (hasSafe) {
+      return "\n      module Safe = {\n        type t = value\n        let fromValue = (value: value) : option<t> => Some(value)\n        let fromValueExn = fromValue\n      }\n\n      type safe = Safe.t\n      ";
+    } else {
+      return "module Safe = {\n      type t = {\n      " + join(Belt_List.map(form.fields, (function (field) {
+                        var name;
+                        var safeType;
+                        switch (field.TAG | 0) {
+                          case /* Scalar */0 :
+                              var safeType$1 = field.safeType;
+                              var name$1 = field.name;
+                              if (safeType$1 === undefined) {
+                                return name$1 + ": " + field.type_;
+                              }
+                              name = name$1;
+                              safeType = safeType$1;
+                              break;
+                          case /* Object */1 :
+                              var safeType$2 = field.safeType;
+                              var name$2 = field.name;
+                              if (safeType$2 !== undefined) {
+                                name = name$2;
+                                safeType = safeType$2;
+                              } else {
+                                var type_ = field.type_;
+                                if (field.option) {
+                                  return name$2 + ": option<" + type_ + ">";
+                                } else {
+                                  return name$2 + ": " + type_;
+                                }
+                              }
+                              break;
+                          case /* List */2 :
+                              var safeType$3 = field.safeType;
+                              var name$3 = field.name;
+                              if (safeType$3 === undefined) {
+                                return name$3 + ": list<" + field.type_ + ">";
+                              }
+                              name = name$3;
+                              safeType = safeType$3;
+                              break;
+                          case /* StringMap */3 :
+                              var safeType$4 = field.safeType;
+                              var name$4 = field.name;
+                              if (safeType$4 === undefined) {
+                                return name$4 + ": Belt.Map.String.t<" + field.type_ + ">";
+                              }
+                              name = name$4;
+                              safeType = safeType$4;
+                              break;
+                          
+                        }
+                        return name + ": " + safeType;
+                      })), ",\n") + "\n      }\n\n      let fromValue = (value: value): option<t> => {\n        try {\n          Some({" + join(Belt_List.map(form.fields, (function (field) {
+                        var exit = 0;
+                        var name;
+                        var transform;
+                        var name$1;
+                        switch (field.TAG | 0) {
+                          case /* Scalar */0 :
+                              var transform$1 = field.safeTransform;
+                              var name$2 = field.name;
+                              if (transform$1 !== undefined) {
+                                name = name$2;
+                                transform = transform$1;
+                                exit = 1;
+                              } else {
+                                name$1 = name$2;
+                                exit = 2;
+                              }
+                              break;
+                          case /* Object */1 :
+                              var transform$2 = field.safeTransform;
+                              var name$3 = field.name;
+                              if (transform$2 !== undefined) {
+                                name = name$3;
+                                transform = transform$2;
+                                exit = 1;
+                              } else {
+                                name$1 = name$3;
+                                exit = 2;
+                              }
+                              break;
+                          case /* List */2 :
+                              var transform$3 = field.safeTransform;
+                              var name$4 = field.name;
+                              if (transform$3 !== undefined) {
+                                name = name$4;
+                                transform = transform$3;
+                                exit = 1;
+                              } else {
+                                name$1 = name$4;
+                                exit = 2;
+                              }
+                              break;
+                          case /* StringMap */3 :
+                              var transform$4 = field.safeTransform;
+                              var name$5 = field.name;
+                              if (transform$4 !== undefined) {
+                                name = name$5;
+                                transform = transform$4;
+                                exit = 1;
+                              } else {
+                                name$1 = name$5;
+                                exit = 2;
+                              }
+                              break;
+                          
+                        }
+                        switch (exit) {
+                          case 1 :
+                              return name + ": (value." + name + ")->" + transform;
+                          case 2 :
+                              return name$1 + ": value." + name$1;
+                          
+                        }
+                      })), ",\n") + "\n      })\n        } catch {\n          | _ => None\n        }\n      }\n\n      let fromValueExn = (value: value): t => fromValue(value)->Belt.Option.getExn\n    }\n    \n    type safe = Safe.t\n    ";
+    }
   };
   var generateFieldsType = function (param) {
     return "type fields<'t, 'self> = {\n    self: ReasonForm.Field.t<'t, 'self>,\n" + join(Belt_List.map(form.fields, (function (field) {
@@ -120,7 +246,7 @@ function generateForm(file, form) {
                       }
                     })), ",\n") + "\n  }\n}";
   };
-  var content = "/* Generated file */\n\n" + generateModuleValue(undefined) + "\n\n" + generateFieldsType(undefined) + "\n\n" + generateCreateFields(undefined);
+  var content = "/* Generated file */\n\n" + generateModuleValue(undefined) + "\n\n" + generateModuleSafe(undefined) + "\n\n" + generateFieldsType(undefined) + "\n\n" + generateCreateFields(undefined);
   var dirname = Path.dirname(file);
   var basename = Path.basename(file);
   var firstPart = Belt_List.head(Belt_List.fromArray(basename.split(".")));

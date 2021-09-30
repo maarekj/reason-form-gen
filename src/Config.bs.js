@@ -34,6 +34,8 @@ function formFromXmlAst(xml) {
                                 TAG: /* List */2,
                                 name: getExn(Belt_List.getAssoc(attrs, "name", eq), "'name' in List must be defined."),
                                 type_: getExn(Belt_List.getAssoc(attrs, "type", eq), "'type' in List must be defined."),
+                                safeType: Belt_List.getAssoc(attrs, "safeType", eq),
+                                safeTransform: Belt_List.getAssoc(attrs, "safeTransform", eq),
                                 module_: Belt_List.getAssoc(attrs, "module", eq),
                                 empty: getExn(Belt_List.getAssoc(attrs, "empty", eq), "'empty' in List must be defined."),
                                 default: Belt_List.getAssoc(attrs, "default", eq)
@@ -44,6 +46,8 @@ function formFromXmlAst(xml) {
                                 TAG: /* Object */1,
                                 name: getExn(Belt_List.getAssoc(attrs$1, "name", eq), "'name' in Object must be defined."),
                                 type_: getExn(Belt_List.getAssoc(attrs$1, "type", eq), "'type' in Object must be defined."),
+                                safeType: Belt_List.getAssoc(attrs$1, "safeType", eq),
+                                safeTransform: Belt_List.getAssoc(attrs$1, "safeTransform", eq),
                                 module_: getExn(Belt_List.getAssoc(attrs$1, "module", eq), "'module' in Object must be defined."),
                                 empty: Belt_List.getAssoc(attrs$1, "empty", eq),
                                 default: Belt_List.getAssoc(attrs$1, "default", eq),
@@ -55,6 +59,8 @@ function formFromXmlAst(xml) {
                                 TAG: /* Scalar */0,
                                 name: getExn(Belt_List.getAssoc(attrs$2, "name", eq), "'name' in Scalar must be defined."),
                                 type_: getExn(Belt_List.getAssoc(attrs$2, "type", eq), "'type' in Scalar must be defined."),
+                                safeType: Belt_List.getAssoc(attrs$2, "safeType", eq),
+                                safeTransform: Belt_List.getAssoc(attrs$2, "safeTransform", eq),
                                 default: Belt_List.getAssoc(attrs$2, "default", eq)
                               };
                     case "StringMap" :
@@ -63,6 +69,8 @@ function formFromXmlAst(xml) {
                                 TAG: /* StringMap */3,
                                 name: getExn(Belt_List.getAssoc(attrs$3, "name", eq), "'name' in StringMap must be defined."),
                                 type_: getExn(Belt_List.getAssoc(attrs$3, "type", eq), "'type' in StringMap must be defined."),
+                                safeType: Belt_List.getAssoc(attrs$3, "safeType", eq),
+                                safeTransform: Belt_List.getAssoc(attrs$3, "safeTransform", eq),
                                 module_: getExn(Belt_List.getAssoc(attrs$3, "module", eq), "'module' in StringMap must be defined."),
                                 empty: getExn(Belt_List.getAssoc(attrs$3, "empty", eq), "'empty' in StringMap must be defined."),
                                 default: Belt_List.getAssoc(attrs$3, "default", eq)

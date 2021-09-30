@@ -28,6 +28,15 @@ var Value = {
   make: make
 };
 
+function fromValue(value) {
+  return value;
+}
+
+var Safe = {
+  fromValue: fromValue,
+  fromValueExn: fromValue
+};
+
 function createFields(self, baseField) {
   var field = Field$ReasonForm.chain(baseField, Field$ReasonForm.createField("tags", (function (v) {
               return v.tags;
@@ -177,5 +186,6 @@ function createFields(self, baseField) {
 }
 
 exports.Value = Value;
+exports.Safe = Safe;
 exports.createFields = createFields;
 /* Address-MaarekjReasonFormGen Not a pure module */

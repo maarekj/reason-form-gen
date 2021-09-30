@@ -17,6 +17,15 @@ var Value = {
   make: make
 };
 
+function fromValue(value) {
+  return value;
+}
+
+var Safe = {
+  fromValue: fromValue,
+  fromValueExn: fromValue
+};
+
 function createFields(self, baseField) {
   return {
           self: self,
@@ -51,5 +60,6 @@ function createFields(self, baseField) {
 }
 
 exports.Value = Value;
+exports.Safe = Safe;
 exports.createFields = createFields;
 /* No side effect */

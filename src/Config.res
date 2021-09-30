@@ -1,10 +1,18 @@
 open Belt
 
 type field =
-  | Scalar({name: string, type_: string, default: option<string>})
+  | Scalar({
+      name: string,
+      type_: string,
+      safeType: option<string>,
+      safeTransform: option<string>,
+      default: option<string>,
+    })
   | Object({
       name: string,
       type_: string,
+      safeType: option<string>,
+      safeTransform: option<string>,
       module_: string,
       empty: option<string>,
       default: option<string>,
@@ -13,6 +21,8 @@ type field =
   | List({
       name: string,
       type_: string,
+      safeType: option<string>,
+      safeTransform: option<string>,
       module_: option<string>,
       empty: string,
       default: option<string>,
@@ -20,6 +30,8 @@ type field =
   | StringMap({
       name: string,
       type_: string,
+      safeType: option<string>,
+      safeTransform: option<string>,
       module_: string,
       empty: string,
       default: option<string>,
@@ -50,12 +62,16 @@ let formFromXmlAst = (xml: XmlDom.ast) => {
             Scalar({
               name: attrs->List.getAssoc("name", eq)->getExn("'name' in Scalar must be defined."),
               type_: attrs->List.getAssoc("type", eq)->getExn("'type' in Scalar must be defined."),
+              safeType: attrs->List.getAssoc("safeType", eq),
+              safeTransform: attrs->List.getAssoc("safeTransform", eq),
               default: attrs->List.getAssoc("default", eq),
             })
           | {tag: "Object", attrs} =>
             Object({
               name: attrs->List.getAssoc("name", eq)->getExn("'name' in Object must be defined."),
               type_: attrs->List.getAssoc("type", eq)->getExn("'type' in Object must be defined."),
+              safeType: attrs->List.getAssoc("safeType", eq),
+              safeTransform: attrs->List.getAssoc("safeTransform", eq),
               module_: attrs
               ->List.getAssoc("module", eq)
               ->getExn("'module' in Object must be defined."),
@@ -67,6 +83,8 @@ let formFromXmlAst = (xml: XmlDom.ast) => {
             List({
               name: attrs->List.getAssoc("name", eq)->getExn("'name' in List must be defined."),
               type_: attrs->List.getAssoc("type", eq)->getExn("'type' in List must be defined."),
+              safeType: attrs->List.getAssoc("safeType", eq),
+              safeTransform: attrs->List.getAssoc("safeTransform", eq),
               module_: attrs->List.getAssoc("module", eq),
               empty: attrs->List.getAssoc("empty", eq)->getExn("'empty' in List must be defined."),
               default: attrs->List.getAssoc("default", eq),
@@ -79,6 +97,8 @@ let formFromXmlAst = (xml: XmlDom.ast) => {
               type_: attrs
               ->List.getAssoc("type", eq)
               ->getExn("'type' in StringMap must be defined."),
+              safeType: attrs->List.getAssoc("safeType", eq),
+              safeTransform: attrs->List.getAssoc("safeTransform", eq),
               module_: attrs
               ->List.getAssoc("module", eq)
               ->getExn("'module' in StringMap must be defined."),

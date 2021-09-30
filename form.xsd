@@ -10,6 +10,8 @@
                                 <xs:complexType>
                                     <xs:attribute name="name" type="xs:string" use="required" />
                                     <xs:attribute name="type" type="xs:string" use="required" />
+                                    <xs:attribute name="safeType" type="xs:string" use="optional" />
+                                    <xs:attribute name="safeTransform" type="xs:string" use="optional" />
                                     <xs:attribute name="default" type="xs:string" use="optional" />
                                 </xs:complexType>
                             </xs:element>
@@ -17,6 +19,8 @@
                                 <xs:complexType>
                                     <xs:attribute name="name" type="xs:string" use="required" />
                                     <xs:attribute name="type" type="xs:string" use="required" />
+                                    <xs:attribute name="safeType" type="xs:string" use="optional" />
+                                    <xs:attribute name="safeTransform" type="xs:string" use="optional" />
                                     <xs:attribute name="module" type="xs:string" use="optional" />
                                     <xs:attribute name="empty" type="xs:string" use="required" />
                                     <xs:attribute name="default" type="xs:string" use="optional" />
@@ -26,6 +30,8 @@
                                 <xs:complexType>
                                     <xs:attribute name="name" type="xs:string" use="required" />
                                     <xs:attribute name="type" type="xs:string" use="required" />
+                                    <xs:attribute name="safeType" type="xs:string" use="optional" />
+                                    <xs:attribute name="safeTransform" type="xs:string" use="optional" />
                                     <xs:attribute name="module" type="xs:string" use="required" />
                                     <xs:attribute name="empty" type="xs:string" use="optional" />
                                     <xs:attribute name="default" type="xs:string" use="optional" />
@@ -36,6 +42,8 @@
                                 <xs:complexType>
                                     <xs:attribute name="name" type="xs:string" use="required" />
                                     <xs:attribute name="type" type="xs:string" use="required" />
+                                    <xs:attribute name="safeType" type="xs:string" use="optional" />
+                                    <xs:attribute name="safeTransform" type="xs:string" use="optional" />
                                     <xs:attribute name="module" type="xs:string" use="required" />
                                     <xs:attribute name="empty" type="xs:string" use="required" />
                                     <xs:attribute name="default" type="xs:string" use="optional" />

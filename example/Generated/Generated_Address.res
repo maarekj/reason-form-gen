@@ -16,6 +16,14 @@ module Value = {
 
 type value = Value.t
 
+module Safe = {
+  type t = value
+  let fromValue = (value: value): option<t> => Some(value)
+  let fromValueExn = fromValue
+}
+
+type safe = Safe.t
+
 type fields<'t, 'self> = {
   self: ReasonForm.Field.t<'t, 'self>,
   street: ReasonForm.Field.t<'t, string>,

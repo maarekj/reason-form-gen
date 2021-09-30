@@ -155,9 +155,12 @@ var Form = {
 
 var Value = Generated_Address$MaarekjReasonFormGen.Value;
 
+var Safe = Generated_Address$MaarekjReasonFormGen.Safe;
+
 var createFields = Generated_Address$MaarekjReasonFormGen.createFields;
 
 exports.Value = Value;
+exports.Safe = Safe;
 exports.createFields = createFields;
 exports.empty = empty;
 exports.validateValue = validateValue;

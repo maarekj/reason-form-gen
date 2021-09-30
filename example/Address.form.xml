@@ -3,7 +3,6 @@
     <fields>
         <Scalar name="street" type="string" default='""' />
         <Scalar name="city" type="string" default='""' />
-        <Scalar name="zipcode" type="option<string>" default="?" />
-
+        <Scalar name="zipcode" type="option<string>" safeType="string" safeTransform="Belt.Option.getExn(_)" default="?" />
     </fields>
 </form>

@@ -14,6 +14,28 @@ module Value = {
 
 type value = Value.t
 
+module Safe = {
+  type t = {
+    title: string,
+    desc: string,
+  }
+
+  let fromValue = (value: value): option<t> => {
+    try {
+      Some({
+        title: value.title,
+        desc: value.desc,
+      })
+    } catch {
+    | _ => None
+    }
+  }
+
+  let fromValueExn = (value: value): t => fromValue(value)->Belt.Option.getExn
+}
+
+type safe = Safe.t
+
 type fields<'t, 'self> = {
   self: ReasonForm.Field.t<'t, 'self>,
   title: ReasonForm.Field.t<'t, string>,

@@ -393,9 +393,12 @@ var Form = {
 
 var Value = Generated_User$MaarekjReasonFormGen.Value;
 
+var Safe = Generated_User$MaarekjReasonFormGen.Safe;
+
 var createFields = Generated_User$MaarekjReasonFormGen.createFields;
 
 exports.Value = Value;
+exports.Safe = Safe;
 exports.createFields = createFields;
 exports.empty = empty;
 exports.rootField = rootField;

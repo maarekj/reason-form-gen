@@ -31,11 +31,11 @@ let generateForm = (file: string, form: Config.form) => {
 ${form.fields
       ->List.map(field => {
         switch field {
-        | Object({name, type_, option: false}) => `        ${name}: ${type_}`
-        | Object({name, type_, option: true}) => `        ${name}: option<${type_}>`
-        | List({name, type_}) => `        ${name}: list<${type_}>`
-        | StringMap({name, type_}) => `        ${name}: Belt.Map.String.t<${type_}>`
-        | Scalar({name, type_}) => `        ${name}: ${type_}`
+        | Object({name, type_, option: false}) => `${name}: ${type_}`
+        | Object({name, type_, option: true}) => `${name}: option<${type_}>`
+        | List({name, type_}) => `${name}: list<${type_}>`
+        | StringMap({name, type_}) => `${name}: Belt.Map.String.t<${type_}>`
+        | Scalar({name, type_}) => `${name}: ${type_}`
         }
       })
       ->join(",\n")}
@@ -45,8 +45,8 @@ ${form.fields
 ${form.fields
       ->List.map(field => {
         switch (getDefaultFromField(field), getNameFromField(field)) {
-        | (None, name) => `        ~${name}`
-        | (Some(default), name) => `        ~${name}=${default}`
+        | (None, name) => `~${name}`
+        | (Some(default), name) => `~${name}=${default}`
         }
       })
       ->join(",\n")}
@@ -64,6 +64,80 @@ ${form.fields
 type value = Value.t
 
 `
+  }
+
+  let generateModuleSafe = () => {
+    let hasSafe = form.fields->List.some(field =>
+      switch field {
+      | Object({safeType: None, safeTransform: None})
+      | List({safeType: None, safeTransform: None})
+      | StringMap({safeType: None, safeTransform: None})
+      | Scalar({safeType: None, safeTransform: None}) => false
+      | _ => true
+      }
+    )
+
+    if hasSafe {
+      "
+      module Safe = {
+        type t = value
+        let fromValue = (value: value) : option<t> => Some(value)
+        let fromValueExn = fromValue
+      }
+
+      type safe = Safe.t
+      "
+    } else {
+      `module Safe = {
+      type t = {
+      ${form.fields
+        ->List.map(field => {
+          switch field {
+          | Object({name, safeType: Some(safeType)})
+          | List({name, safeType: Some(safeType)})
+          | StringMap({name, safeType: Some(safeType)})
+          | Scalar({name, safeType: Some(safeType)}) =>
+            `${name}: ${safeType}`
+          | Object({name, safeType: None, type_, option: false}) => `${name}: ${type_}`
+          | Object({name, safeType: None, type_, option: true}) => `${name}: option<${type_}>`
+          | List({name, safeType: None, type_}) => `${name}: list<${type_}>`
+          | StringMap({name, safeType: None, type_}) => `${name}: Belt.Map.String.t<${type_}>`
+          | Scalar({name, safeType: None, type_}) => `${name}: ${type_}`
+          }
+        })
+        ->join(",\n")}
+      }
+
+      let fromValue = (value: value): option<t> => {
+        try {
+          Some({${form.fields
+        ->List.map(field => {
+          switch field {
+          | Object({name, safeTransform: Some(transform)})
+          | List({name, safeTransform: Some(transform)})
+          | StringMap({name, safeTransform: Some(transform)})
+          | Scalar({name, safeTransform: Some(transform)}) =>
+            `${name}: (value.${name})->${transform}`
+          | Object({name, safeTransform: None})
+          | List({name, safeTransform: None})
+          | StringMap({name, safeTransform: None})
+          | Scalar({name, safeTransform: None}) =>
+            `${name}: value.${name}`
+          }
+        })
+        ->join(",\n")}
+      })
+        } catch {
+          | _ => None
+        }
+      }
+
+      let fromValueExn = (value: value): t => fromValue(value)->Belt.Option.getExn
+    }
+    
+    type safe = Safe.t
+    `
+    }
   }
 
   let generateFieldsType = () => {
@@ -175,6 +249,8 @@ ${form.fields
   let content =
     "/* Generated file */\n\n" ++
     generateModuleValue() ++
+    "\n\n" ++
+    generateModuleSafe() ++
     "\n\n" ++
     generateFieldsType() ++
     "\n\n" ++
