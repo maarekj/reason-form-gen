@@ -37,7 +37,10 @@ type field =
       default: option<string>,
     })
 
-type form = {fields: list<field>}
+type form = {
+  withSafe: bool,
+  fields: list<field>,
+}
 
 let formFromXmlAst = (xml: XmlDom.ast) => {
   let eq = (a, b) => a == b
@@ -49,13 +52,14 @@ let formFromXmlAst = (xml: XmlDom.ast) => {
   }
 
   switch xml {
-  | {tag: "form"} => {
+  | {tag: "form", attrs} => {
       let fields =
         xml
         ->XmlDom.getFirstChildElement("fields")
         ->Option.getWithDefault({tag: "fields", attrs: list{}, children: list{}})
 
       {
+        withSafe: attrs->List.getAssoc("withSafe", eq)->Option.getWithDefault("true") == "true",
         fields: fields.children->List.map(field =>
           switch field {
           | {tag: "Scalar", attrs} =>

@@ -57,6 +57,9 @@ function generateForm(file, form) {
                     })), ",\n") + "\n    }\n}\n\ntype value = Value.t\n\n";
   };
   var generateModuleSafe = function (param) {
+    if (form.withSafe === false) {
+      return "";
+    }
     var hasSafe = Belt_List.some(form.fields, (function (field) {
             if (field.safeType !== undefined) {
               return true;
@@ -64,7 +67,7 @@ function generateForm(file, form) {
               return field.safeTransform !== undefined;
             }
           }));
-    if (hasSafe) {
+    if (false === hasSafe) {
       return "\n      module Safe = {\n        type t = value\n        let fromValue = (value: value) : option<t> => Some(value)\n        let fromValueExn = fromValue\n      }\n\n      type safe = Safe.t\n      ";
     } else {
       return "module Safe = {\n      type t = {\n      " + join(Belt_List.map(form.fields, (function (field) {

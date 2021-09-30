@@ -53,6 +53,7 @@
                     </xs:complexType>
                 </xs:element>
             </xs:choice>
+            <xs:attribute name="withSafe" type="xs:boolean" use="optional" />
         </xs:complexType>
     </xs:element>
 </xs:schema>

@@ -26,6 +26,7 @@ function formFromXmlAst(xml) {
         children: /* [] */0
       });
   return {
+          withSafe: Belt_Option.getWithDefault(Belt_List.getAssoc(xml.attrs, "withSafe", eq), "true") === "true",
           fields: Belt_List.map(fields.children, (function (field) {
                   switch (field.tag) {
                     case "List" :

@@ -4,11 +4,11 @@
         <Scalar name="username" type="option<string>" default="?" safeType="string" safeTransform="Belt.Option.getExn" />
         <Scalar name="lastname" type="option<string>" default="?" safeType="string" safeTransform="Belt.Option.getExn" />
         <Scalar name="firstname" type="option<string>" default="?" safeType="string" safeTransform="Belt.Option.getExn" />
-        <Scalar name="gender" type="option<Gender.t>" default="?" safeType="string" safeTransform="Belt.Option.getExn" />
+        <Scalar name="gender" type="option<Gender.t>" default="?" safeType="Gender.t" safeTransform="Belt.Option.getExn" />
         <Scalar name="age" type="int" default="0" />
         <List name="tags" type="string" default="list{}" empty='""' />
         <Object name="mainAddress" type="Address.value" module="Address" empty="Address.empty" option="true" default="?" />
-        <List name="addresses" type="Address.value" module="Address" empty="Address.empty" default="list{}" />
+        <List name="addresses" type="Address.value" module="Address" empty="Address.empty" default="list{}" safeType="list<Address.safe>" safeTransform="Belt.List.map(Address.Safe.fromValueExn)" />
         <StringMap name="metadata" type="Metadata.value" module="Metadata" empty="Metadata.empty" default="Belt.Map.String.empty" />
     </fields>
 </form>

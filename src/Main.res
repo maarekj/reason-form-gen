@@ -67,18 +67,21 @@ type value = Value.t
   }
 
   let generateModuleSafe = () => {
-    let hasSafe = form.fields->List.some(field =>
-      switch field {
-      | Object({safeType: None, safeTransform: None})
-      | List({safeType: None, safeTransform: None})
-      | StringMap({safeType: None, safeTransform: None})
-      | Scalar({safeType: None, safeTransform: None}) => false
-      | _ => true
-      }
-    )
+    if form.withSafe === false {
+      ""
+    } else {
+      let hasSafe = form.fields->List.some(field =>
+        switch field {
+        | Object({safeType: None, safeTransform: None})
+        | List({safeType: None, safeTransform: None})
+        | StringMap({safeType: None, safeTransform: None})
+        | Scalar({safeType: None, safeTransform: None}) => false
+        | _ => true
+        }
+      )
 
-    if hasSafe {
-      "
+      if false == hasSafe {
+        "
       module Safe = {
         type t = value
         let fromValue = (value: value) : option<t> => Some(value)
@@ -87,45 +90,45 @@ type value = Value.t
 
       type safe = Safe.t
       "
-    } else {
-      `module Safe = {
+      } else {
+        `module Safe = {
       type t = {
       ${form.fields
-        ->List.map(field => {
-          switch field {
-          | Object({name, safeType: Some(safeType)})
-          | List({name, safeType: Some(safeType)})
-          | StringMap({name, safeType: Some(safeType)})
-          | Scalar({name, safeType: Some(safeType)}) =>
-            `${name}: ${safeType}`
-          | Object({name, safeType: None, type_, option: false}) => `${name}: ${type_}`
-          | Object({name, safeType: None, type_, option: true}) => `${name}: option<${type_}>`
-          | List({name, safeType: None, type_}) => `${name}: list<${type_}>`
-          | StringMap({name, safeType: None, type_}) => `${name}: Belt.Map.String.t<${type_}>`
-          | Scalar({name, safeType: None, type_}) => `${name}: ${type_}`
-          }
-        })
-        ->join(",\n")}
+          ->List.map(field => {
+            switch field {
+            | Object({name, safeType: Some(safeType)})
+            | List({name, safeType: Some(safeType)})
+            | StringMap({name, safeType: Some(safeType)})
+            | Scalar({name, safeType: Some(safeType)}) =>
+              `${name}: ${safeType}`
+            | Object({name, safeType: None, type_, option: false}) => `${name}: ${type_}`
+            | Object({name, safeType: None, type_, option: true}) => `${name}: option<${type_}>`
+            | List({name, safeType: None, type_}) => `${name}: list<${type_}>`
+            | StringMap({name, safeType: None, type_}) => `${name}: Belt.Map.String.t<${type_}>`
+            | Scalar({name, safeType: None, type_}) => `${name}: ${type_}`
+            }
+          })
+          ->join(",\n")}
       }
 
       let fromValue = (value: value): option<t> => {
         try {
           Some({${form.fields
-        ->List.map(field => {
-          switch field {
-          | Object({name, safeTransform: Some(transform)})
-          | List({name, safeTransform: Some(transform)})
-          | StringMap({name, safeTransform: Some(transform)})
-          | Scalar({name, safeTransform: Some(transform)}) =>
-            `${name}: (value.${name})->${transform}`
-          | Object({name, safeTransform: None})
-          | List({name, safeTransform: None})
-          | StringMap({name, safeTransform: None})
-          | Scalar({name, safeTransform: None}) =>
-            `${name}: value.${name}`
-          }
-        })
-        ->join(",\n")}
+          ->List.map(field => {
+            switch field {
+            | Object({name, safeTransform: Some(transform)})
+            | List({name, safeTransform: Some(transform)})
+            | StringMap({name, safeTransform: Some(transform)})
+            | Scalar({name, safeTransform: Some(transform)}) =>
+              `${name}: (value.${name})->${transform}`
+            | Object({name, safeTransform: None})
+            | List({name, safeTransform: None})
+            | StringMap({name, safeTransform: None})
+            | Scalar({name, safeTransform: None}) =>
+              `${name}: value.${name}`
+            }
+          })
+          ->join(",\n")}
       })
         } catch {
           | _ => None
@@ -137,6 +140,7 @@ type value = Value.t
     
     type safe = Safe.t
     `
+      }
     }
   }
 

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<form xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../form.xsd">
+<form xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../form.xsd" withSafe="false">
     <fields>
         <Scalar name="title" type="string" default='""' />
         <Scalar name="desc" type="string" default='""' />
