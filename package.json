@@ -2,7 +2,7 @@
     "name": "@maarekj/reason-form-gen",
     "author": "Joseph Maarek <josephmaarek@gmail.com>",
     "license": "MIT",
-    "version": "0.0.6",
+    "version": "1.0.0",
     "scripts": {
         "start:reason": "rescript build -w",
         "start:webpack": "webpack -w",

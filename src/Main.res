@@ -168,6 +168,8 @@ ${form.fields
   }
 
   let generateCreateFields = () => {
+    let spreadValues = form.fields->List.length <= 1 ? "" : "...values,"
+
     `let createFields = (self, baseField) => {
   open ReasonForm.Field
   {
@@ -182,7 +184,7 @@ ${form.fields
             createField(
                 ~key="${name}",
                 ~getValue=v => v.Value.${name},
-                ~setValue=(v, values) => {...values, ${name}: v},
+                ~setValue=(v, values) => {${spreadValues} ${name}: v},
             ),
         )
 
@@ -197,7 +199,7 @@ ${form.fields
             createField(
                 ~key="${name}",
                 ~getValue=v => v.Value.${name},
-                ~setValue=(v, values) => {...values, ${name}: v},
+                ~setValue=(v, values) => {${spreadValues} ${name}: v},
             ),
         )
 
@@ -209,7 +211,7 @@ ${form.fields
             createField(
                 ~key="${name}",
                 ~getValue=v => v.Value.${name},
-                ~setValue=(v, values) => {...values, ${name}: v},
+                ~setValue=(v, values) => {${spreadValues} ${name}: v},
             ),
         )->chainList(${empty}, ${module_}.createFields)
       `
@@ -220,7 +222,7 @@ ${form.fields
             createField(
                 ~key="${name}",
                 ~getValue=v => v.Value.${name},
-                ~setValue=(v, values) => {...values, ${name}: v},
+                ~setValue=(v, values) => {${spreadValues} ${name}: v},
             ),
         )
         (field, makeListItemField(${empty}, field))
@@ -231,7 +233,7 @@ ${form.fields
             createField(
                 ~key="${name}",
                 ~getValue=v => v.Value.${name},
-                ~setValue=(v, values) => {...values, ${name}: v},
+                ~setValue=(v, values) => {${spreadValues} ${name}: v},
             ),
         )->chainStringMap(${empty}, ${module_}.createFields)
       `
@@ -240,7 +242,7 @@ ${form.fields
         createField(
             ~key="${name}",
             ~getValue=v => v.Value.${name},
-            ~setValue=(v, values) => {...values, ${name}: v},
+            ~setValue=(v, values) => {${spreadValues} ${name}: v},
         ),
     )`
         }
