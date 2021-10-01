@@ -55,21 +55,21 @@ let createFields = (self, baseField) => {
       createField(
         ~key="street",
         ~getValue=v => v.Value.street,
-        ~setValue=(v, values) => {...values, street: v},
+        ~setValue=(v, _values) => {..._values, street: v},
       ),
     ),
     city: baseField->chain(
       createField(
         ~key="city",
         ~getValue=v => v.Value.city,
-        ~setValue=(v, values) => {...values, city: v},
+        ~setValue=(v, _values) => {..._values, city: v},
       ),
     ),
     zipcode: baseField->chain(
       createField(
         ~key="zipcode",
         ~getValue=v => v.Value.zipcode,
-        ~setValue=(v, values) => {...values, zipcode: v},
+        ~setValue=(v, _values) => {..._values, zipcode: v},
       ),
     ),
   }

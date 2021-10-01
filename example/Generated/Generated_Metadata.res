@@ -28,14 +28,14 @@ let createFields = (self, baseField) => {
       createField(
         ~key="title",
         ~getValue=v => v.Value.title,
-        ~setValue=(v, values) => {...values, title: v},
+        ~setValue=(v, _values) => {..._values, title: v},
       ),
     ),
     desc: baseField->chain(
       createField(
         ~key="desc",
         ~getValue=v => v.Value.desc,
-        ~setValue=(v, values) => {...values, desc: v},
+        ~setValue=(v, _values) => {..._values, desc: v},
       ),
     ),
   }

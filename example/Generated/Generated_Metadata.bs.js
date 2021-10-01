@@ -21,17 +21,17 @@ function createFields(self, baseField) {
           self: self,
           title: Field$ReasonForm.chain(baseField, Field$ReasonForm.createField("title", (function (v) {
                       return v.title;
-                    }), (function (v, values) {
+                    }), (function (v, _values) {
                       return {
                               title: v,
-                              desc: values.desc
+                              desc: _values.desc
                             };
                     }))),
           desc: Field$ReasonForm.chain(baseField, Field$ReasonForm.createField("desc", (function (v) {
                       return v.desc;
-                    }), (function (v, values) {
+                    }), (function (v, _values) {
                       return {
-                              title: values.title,
+                              title: _values.title,
                               desc: v
                             };
                     })))

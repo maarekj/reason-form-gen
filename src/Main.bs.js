@@ -216,36 +216,36 @@ function generateForm(file, form) {
                     })), ",\n") + "\n}";
   };
   var generateCreateFields = function (param) {
-    var spreadValues = Belt_List.length(form.fields) <= 1 ? "" : "...values,";
+    var spreadValues = Belt_List.length(form.fields) <= 1 ? "" : "..._values,";
     return "let createFields = (self, baseField) => {\n  open ReasonForm.Field\n  {\n    self: self,\n" + join(Belt_List.map(form.fields, (function (field) {
                       switch (field.TAG | 0) {
                         case /* Scalar */0 :
                             var name = field.name;
-                            return "    " + name + ": baseField->chain(\n        createField(\n            ~key=\"" + name + "\",\n            ~getValue=v => v.Value." + name + ",\n            ~setValue=(v, values) => {" + spreadValues + " " + name + ": v},\n        ),\n    )";
+                            return "    " + name + ": baseField->chain(\n        createField(\n            ~key=\"" + name + "\",\n            ~getValue=v => v.Value." + name + ",\n            ~setValue=(v, _values) => {" + spreadValues + " " + name + ": v},\n        ),\n    )";
                         case /* Object */1 :
                             var empty = field.empty;
                             var module_ = field.module_;
                             var name$1 = field.name;
                             if (field.option) {
                               if (empty !== undefined) {
-                                return "    " + name$1 + ": {\n        let field = chain(\n            baseField,\n            createField(\n                ~key=\"" + name$1 + "\",\n                ~getValue=v => v.Value." + name$1 + ",\n                ~setValue=(v, values) => {" + spreadValues + " " + name$1 + ": v},\n            ),\n        )\n\n        " + module_ + ".createFields(field, option(field, " + empty + "))\n      }";
+                                return "    " + name$1 + ": {\n        let field = chain(\n            baseField,\n            createField(\n                ~key=\"" + name$1 + "\",\n                ~getValue=v => v.Value." + name$1 + ",\n                ~setValue=(v, _values) => {" + spreadValues + " " + name$1 + ": v},\n            ),\n        )\n\n        " + module_ + ".createFields(field, option(field, " + empty + "))\n      }";
                               } else {
                                 return Pervasives.failwith("error: if object 'option' is given, 'empty' must be given.");
                               }
                             } else {
-                              return "    " + name$1 + ": {\n        let field = chain(\n            baseField,\n            createField(\n                ~key=\"" + name$1 + "\",\n                ~getValue=v => v.Value." + name$1 + ",\n                ~setValue=(v, values) => {" + spreadValues + " " + name$1 + ": v},\n            ),\n        )\n\n        " + module_ + ".createFields(field, field)\n      }";
+                              return "    " + name$1 + ": {\n        let field = chain(\n            baseField,\n            createField(\n                ~key=\"" + name$1 + "\",\n                ~getValue=v => v.Value." + name$1 + ",\n                ~setValue=(v, _values) => {" + spreadValues + " " + name$1 + ": v},\n            ),\n        )\n\n        " + module_ + ".createFields(field, field)\n      }";
                             }
                         case /* List */2 :
                             var module_$1 = field.module_;
                             var name$2 = field.name;
                             if (module_$1 !== undefined) {
-                              return "    " + name$2 + ": chain(\n            baseField,\n            createField(\n                ~key=\"" + name$2 + "\",\n                ~getValue=v => v.Value." + name$2 + ",\n                ~setValue=(v, values) => {" + spreadValues + " " + name$2 + ": v},\n            ),\n        )->chainList(" + field.empty + ", " + module_$1 + ".createFields)\n      ";
+                              return "    " + name$2 + ": chain(\n            baseField,\n            createField(\n                ~key=\"" + name$2 + "\",\n                ~getValue=v => v.Value." + name$2 + ",\n                ~setValue=(v, _values) => {" + spreadValues + " " + name$2 + ": v},\n            ),\n        )->chainList(" + field.empty + ", " + module_$1 + ".createFields)\n      ";
                             } else {
-                              return "    " + name$2 + ": {\n            let field = chain(\n            baseField,\n            createField(\n                ~key=\"" + name$2 + "\",\n                ~getValue=v => v.Value." + name$2 + ",\n                ~setValue=(v, values) => {" + spreadValues + " " + name$2 + ": v},\n            ),\n        )\n        (field, makeListItemField(" + field.empty + ", field))\n      }";
+                              return "    " + name$2 + ": {\n            let field = chain(\n            baseField,\n            createField(\n                ~key=\"" + name$2 + "\",\n                ~getValue=v => v.Value." + name$2 + ",\n                ~setValue=(v, _values) => {" + spreadValues + " " + name$2 + ": v},\n            ),\n        )\n        (field, makeListItemField(" + field.empty + ", field))\n      }";
                             }
                         case /* StringMap */3 :
                             var name$3 = field.name;
-                            return "    " + name$3 + ": chain(\n            baseField,\n            createField(\n                ~key=\"" + name$3 + "\",\n                ~getValue=v => v.Value." + name$3 + ",\n                ~setValue=(v, values) => {" + spreadValues + " " + name$3 + ": v},\n            ),\n        )->chainStringMap(" + field.empty + ", " + field.module_ + ".createFields)\n      ";
+                            return "    " + name$3 + ": chain(\n            baseField,\n            createField(\n                ~key=\"" + name$3 + "\",\n                ~getValue=v => v.Value." + name$3 + ",\n                ~setValue=(v, _values) => {" + spreadValues + " " + name$3 + ": v},\n            ),\n        )->chainStringMap(" + field.empty + ", " + field.module_ + ".createFields)\n      ";
                         
                       }
                     })), ",\n") + "\n  }\n}";

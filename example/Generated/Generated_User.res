@@ -102,35 +102,35 @@ let createFields = (self, baseField) => {
       createField(
         ~key="username",
         ~getValue=v => v.Value.username,
-        ~setValue=(v, values) => {...values, username: v},
+        ~setValue=(v, _values) => {..._values, username: v},
       ),
     ),
     lastname: baseField->chain(
       createField(
         ~key="lastname",
         ~getValue=v => v.Value.lastname,
-        ~setValue=(v, values) => {...values, lastname: v},
+        ~setValue=(v, _values) => {..._values, lastname: v},
       ),
     ),
     firstname: baseField->chain(
       createField(
         ~key="firstname",
         ~getValue=v => v.Value.firstname,
-        ~setValue=(v, values) => {...values, firstname: v},
+        ~setValue=(v, _values) => {..._values, firstname: v},
       ),
     ),
     gender: baseField->chain(
       createField(
         ~key="gender",
         ~getValue=v => v.Value.gender,
-        ~setValue=(v, values) => {...values, gender: v},
+        ~setValue=(v, _values) => {..._values, gender: v},
       ),
     ),
     age: baseField->chain(
       createField(
         ~key="age",
         ~getValue=v => v.Value.age,
-        ~setValue=(v, values) => {...values, age: v},
+        ~setValue=(v, _values) => {..._values, age: v},
       ),
     ),
     tags: {
@@ -139,7 +139,7 @@ let createFields = (self, baseField) => {
         createField(
           ~key="tags",
           ~getValue=v => v.Value.tags,
-          ~setValue=(v, values) => {...values, tags: v},
+          ~setValue=(v, _values) => {..._values, tags: v},
         ),
       )
       (field, makeListItemField("", field))
@@ -150,7 +150,7 @@ let createFields = (self, baseField) => {
         createField(
           ~key="mainAddress",
           ~getValue=v => v.Value.mainAddress,
-          ~setValue=(v, values) => {...values, mainAddress: v},
+          ~setValue=(v, _values) => {..._values, mainAddress: v},
         ),
       )
 
@@ -161,7 +161,7 @@ let createFields = (self, baseField) => {
       createField(
         ~key="addresses",
         ~getValue=v => v.Value.addresses,
-        ~setValue=(v, values) => {...values, addresses: v},
+        ~setValue=(v, _values) => {..._values, addresses: v},
       ),
     )->chainList(Address.empty, Address.createFields),
     metadata: chain(
@@ -169,7 +169,7 @@ let createFields = (self, baseField) => {
       createField(
         ~key="metadata",
         ~getValue=v => v.Value.metadata,
-        ~setValue=(v, values) => {...values, metadata: v},
+        ~setValue=(v, _values) => {..._values, metadata: v},
       ),
     )->chainStringMap(Metadata.empty, Metadata.createFields),
   }

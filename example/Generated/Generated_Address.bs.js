@@ -45,28 +45,28 @@ function createFields(self, baseField) {
           self: self,
           street: Field$ReasonForm.chain(baseField, Field$ReasonForm.createField("street", (function (v) {
                       return v.street;
-                    }), (function (v, values) {
+                    }), (function (v, _values) {
                       return {
                               street: v,
-                              city: values.city,
-                              zipcode: values.zipcode
+                              city: _values.city,
+                              zipcode: _values.zipcode
                             };
                     }))),
           city: Field$ReasonForm.chain(baseField, Field$ReasonForm.createField("city", (function (v) {
                       return v.city;
-                    }), (function (v, values) {
+                    }), (function (v, _values) {
                       return {
-                              street: values.street,
+                              street: _values.street,
                               city: v,
-                              zipcode: values.zipcode
+                              zipcode: _values.zipcode
                             };
                     }))),
           zipcode: Field$ReasonForm.chain(baseField, Field$ReasonForm.createField("zipcode", (function (v) {
                       return v.zipcode;
-                    }), (function (v, values) {
+                    }), (function (v, _values) {
                       return {
-                              street: values.street,
-                              city: values.city,
+                              street: _values.street,
+                              city: _values.city,
                               zipcode: v
                             };
                     })))
