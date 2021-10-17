@@ -1,5 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-<form xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../form.xsd">
+<form
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:noNamespaceSchemaLocation="../form.xsd"
+    withDecco="true"
+>
     <fields>
         <Scalar name="username" type="option<string>" default="?" safeType="string" safeTransform="Belt.Option.getExn" />
         <Scalar name="lastname" type="option<string>" default="?" safeType="string" safeTransform="Belt.Option.getExn" />

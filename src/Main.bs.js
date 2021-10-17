@@ -26,7 +26,9 @@ function generateForm(file, form) {
     }
   };
   var generateModuleValue = function (param) {
-    return "module Value = {\n    type t = {\n" + join(Belt_List.map(form.fields, (function (field) {
+    return "module Value = {\n      " + (
+            form.withDecco ? "@decco" : ""
+          ) + "\n    type t = {\n" + join(Belt_List.map(form.fields, (function (field) {
                       switch (field.TAG | 0) {
                         case /* Scalar */0 :
                             return field.name + ": " + field.type_;
@@ -70,7 +72,9 @@ function generateForm(file, form) {
     if (false === hasSafe) {
       return "\n      module Safe = {\n        type t = value\n        let fromValue = (value: value) : option<t> => Some(value)\n        let fromValueExn = fromValue\n      }\n\n      type safe = Safe.t\n      ";
     } else {
-      return "module Safe = {\n      type t = {\n      " + join(Belt_List.map(form.fields, (function (field) {
+      return "module Safe = {\n      " + (
+              form.withDecco ? "@decco" : ""
+            ) + "\n      type t = {\n      " + join(Belt_List.map(form.fields, (function (field) {
                         var name;
                         var safeType;
                         switch (field.TAG | 0) {

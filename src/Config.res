@@ -39,6 +39,7 @@ type field =
 
 type form = {
   withSafe: bool,
+  withDecco: bool,
   fields: list<field>,
 }
 
@@ -60,6 +61,7 @@ let formFromXmlAst = (xml: XmlDom.ast) => {
 
       {
         withSafe: attrs->List.getAssoc("withSafe", eq)->Option.getWithDefault("true") == "true",
+        withDecco: attrs->List.getAssoc("withDecco", eq)->Option.getWithDefault("false") == "true",
         fields: fields.children->List.map(field =>
           switch field {
           | {tag: "Scalar", attrs} =>

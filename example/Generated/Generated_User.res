@@ -1,6 +1,7 @@
 /* Generated file */
 
 module Value = {
+  @decco
   type t = {
     username: option<string>,
     lastname: option<string>,
@@ -40,6 +41,7 @@ module Value = {
 type value = Value.t
 
 module Safe = {
+  @decco
   type t = {
     username: string,
     lastname: string,

@@ -20,13 +20,15 @@ function formFromXmlAst(xml) {
   if (xml.tag !== "form") {
     return Pervasives.failwith("the root tag must be <form>");
   }
+  var attrs = xml.attrs;
   var fields = Belt_Option.getWithDefault(XmlDom$MaarekjReasonFormGen.getFirstChildElement(xml, "fields"), {
         tag: "fields",
         attrs: /* [] */0,
         children: /* [] */0
       });
   return {
-          withSafe: Belt_Option.getWithDefault(Belt_List.getAssoc(xml.attrs, "withSafe", eq), "true") === "true",
+          withSafe: Belt_Option.getWithDefault(Belt_List.getAssoc(attrs, "withSafe", eq), "true") === "true",
+          withDecco: Belt_Option.getWithDefault(Belt_List.getAssoc(attrs, "withDecco", eq), "false") === "true",
           fields: Belt_List.map(fields.children, (function (field) {
                   switch (field.tag) {
                     case "List" :

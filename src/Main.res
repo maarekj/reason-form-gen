@@ -27,6 +27,7 @@ let generateForm = (file: string, form: Config.form) => {
 
   let generateModuleValue = () => {
     `module Value = {
+      ${form.withDecco ? "@decco" : ""}
     type t = {
 ${form.fields
       ->List.map(field => {
@@ -92,6 +93,7 @@ type value = Value.t
       "
       } else {
         `module Safe = {
+      ${form.withDecco ? "@decco" : ""}
       type t = {
       ${form.fields
           ->List.map(field => {

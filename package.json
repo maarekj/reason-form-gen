@@ -12,7 +12,8 @@
         "build": "yarn run build:reason && yarn run build:webpack",
         "clean": "rescript clean -with-deps && rm -Rfv build/* public/build/*",
         "refmt": "rescript format -all",
-        "prepare": "install-self-peers -- --ignore-scripts && yarn run build"
+        "prepare": "install-self-peers -- --ignore-scripts && yarn run build",
+        "generate-examples": "node ./bin/reason-form-gen.js generate example/**.form.xml"
     },
     "keywords": [
         "rescript"
