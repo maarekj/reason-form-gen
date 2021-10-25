@@ -3,7 +3,7 @@
 module Value = {
   @decco
   type t = {
-    username: option<string>,
+    @decco.key("user") username: option<string>,
     lastname: option<string>,
     firstname: option<string>,
     gender: option<Gender.t>,

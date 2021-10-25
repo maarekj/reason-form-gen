@@ -18,6 +18,39 @@ function join(list, sep) {
 }
 
 function generateForm(file, form) {
+  var deccoKeyAttr = function (field) {
+    var key;
+    var exit = 0;
+    switch (field.TAG | 0) {
+      case /* Scalar */0 :
+          var key$1 = field.deccoKey;
+          if (key$1 === undefined) {
+            return "";
+          }
+          key = key$1;
+          break;
+      case /* Object */1 :
+          var key$2 = field.deccoKey;
+          if (key$2 === undefined) {
+            return "";
+          }
+          key = key$2;
+          break;
+      case /* List */2 :
+      case /* StringMap */3 :
+          exit = 2;
+          break;
+      
+    }
+    if (exit === 2) {
+      var key$3 = field.deccoKey;
+      if (key$3 === undefined) {
+        return "";
+      }
+      key = key$3;
+    }
+    return " @decco.key(\"" + key + "\") ";
+  };
   var getDefaultFromField = function (field) {
     if (field.TAG === /* Scalar */0) {
       return field.default;
@@ -29,23 +62,25 @@ function generateForm(file, form) {
     return "module Value = {\n      " + (
             form.withDecco ? "@decco" : ""
           ) + "\n    type t = {\n" + join(Belt_List.map(form.fields, (function (field) {
+                      var tmp;
                       switch (field.TAG | 0) {
                         case /* Scalar */0 :
-                            return field.name + ": " + field.type_;
+                            tmp = field.name + ": " + field.type_;
+                            break;
                         case /* Object */1 :
                             var type_ = field.type_;
                             var name = field.name;
-                            if (field.option) {
-                              return name + ": option<" + type_ + ">";
-                            } else {
-                              return name + ": " + type_;
-                            }
+                            tmp = field.option ? name + ": option<" + type_ + ">" : name + ": " + type_;
+                            break;
                         case /* List */2 :
-                            return field.name + ": list<" + field.type_ + ">";
+                            tmp = field.name + ": list<" + field.type_ + ">";
+                            break;
                         case /* StringMap */3 :
-                            return field.name + ": Belt.Map.String.t<" + field.type_ + ">";
+                            tmp = field.name + ": Belt.Map.String.t<" + field.type_ + ">";
+                            break;
                         
                       }
+                      return deccoKeyAttr(field) + " " + tmp;
                     })), ",\n") + "\n    }\n\n    let make = (\n" + join(Belt_List.map(form.fields, (function (field) {
                       var match = getDefaultFromField(field);
                       var match$1 = field.name;

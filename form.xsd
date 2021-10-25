@@ -13,6 +13,7 @@
                                     <xs:attribute name="safeType" type="xs:string" use="optional" />
                                     <xs:attribute name="safeTransform" type="xs:string" use="optional" />
                                     <xs:attribute name="default" type="xs:string" use="optional" />
+                                    <xs:attribute name="deccoKey" type="xs:string" use="optional" />
                                 </xs:complexType>
                             </xs:element>
                             <xs:element name="List" minOccurs="0" maxOccurs="unbounded">
@@ -24,6 +25,7 @@
                                     <xs:attribute name="module" type="xs:string" use="optional" />
                                     <xs:attribute name="empty" type="xs:string" use="required" />
                                     <xs:attribute name="default" type="xs:string" use="optional" />
+                                    <xs:attribute name="deccoKey" type="xs:string" use="optional" />
                                 </xs:complexType>
                             </xs:element>
                             <xs:element name="Object" minOccurs="0" maxOccurs="unbounded">
@@ -36,6 +38,7 @@
                                     <xs:attribute name="empty" type="xs:string" use="optional" />
                                     <xs:attribute name="default" type="xs:string" use="optional" />
                                     <xs:attribute name="option" type="xs:boolean" use="optional" />
+                                    <xs:attribute name="deccoKey" type="xs:string" use="optional" />
                                 </xs:complexType>
                             </xs:element>
                             <xs:element name="StringMap" minOccurs="0" maxOccurs="unbounded">
@@ -47,6 +50,7 @@
                                     <xs:attribute name="module" type="xs:string" use="required" />
                                     <xs:attribute name="empty" type="xs:string" use="required" />
                                     <xs:attribute name="default" type="xs:string" use="optional" />
+                                    <xs:attribute name="deccoKey" type="xs:string" use="optional" />
                                 </xs:complexType>
                             </xs:element>
                         </xs:choice>

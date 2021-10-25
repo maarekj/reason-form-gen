@@ -5,7 +5,7 @@
     withDecco="true"
 >
     <fields>
-        <Scalar name="username" type="option<string>" default="?" safeType="string" safeTransform="Belt.Option.getExn" />
+        <Scalar name="username" type="option<string>" default="?" safeType="string" safeTransform="Belt.Option.getExn" deccoKey="user" />
         <Scalar name="lastname" type="option<string>" default="?" safeType="string" safeTransform="Belt.Option.getExn" />
         <Scalar name="firstname" type="option<string>" default="?" safeType="string" safeTransform="Belt.Option.getExn" />
         <Scalar name="gender" type="option<Gender.t>" default="?" safeType="Gender.t" safeTransform="Belt.Option.getExn" />

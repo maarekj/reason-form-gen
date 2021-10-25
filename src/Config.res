@@ -7,6 +7,7 @@ type field =
       safeType: option<string>,
       safeTransform: option<string>,
       default: option<string>,
+      deccoKey: option<string>,
     })
   | Object({
       name: string,
@@ -17,6 +18,7 @@ type field =
       empty: option<string>,
       default: option<string>,
       option: bool,
+      deccoKey: option<string>,
     })
   | List({
       name: string,
@@ -26,6 +28,7 @@ type field =
       module_: option<string>,
       empty: string,
       default: option<string>,
+      deccoKey: option<string>,
     })
   | StringMap({
       name: string,
@@ -35,6 +38,7 @@ type field =
       module_: string,
       empty: string,
       default: option<string>,
+      deccoKey: option<string>,
     })
 
 type form = {
@@ -71,6 +75,7 @@ let formFromXmlAst = (xml: XmlDom.ast) => {
               safeType: attrs->List.getAssoc("safeType", eq),
               safeTransform: attrs->List.getAssoc("safeTransform", eq),
               default: attrs->List.getAssoc("default", eq),
+              deccoKey: attrs->List.getAssoc("deccoKey", eq),
             })
           | {tag: "Object", attrs} =>
             Object({
@@ -84,6 +89,7 @@ let formFromXmlAst = (xml: XmlDom.ast) => {
               empty: attrs->List.getAssoc("empty", eq),
               default: attrs->List.getAssoc("default", eq),
               option: attrs->List.getAssoc("option", eq)->Option.getWithDefault("false") == "true",
+              deccoKey: attrs->List.getAssoc("deccoKey", eq),
             })
           | {tag: "List", attrs} =>
             List({
@@ -94,6 +100,7 @@ let formFromXmlAst = (xml: XmlDom.ast) => {
               module_: attrs->List.getAssoc("module", eq),
               empty: attrs->List.getAssoc("empty", eq)->getExn("'empty' in List must be defined."),
               default: attrs->List.getAssoc("default", eq),
+              deccoKey: attrs->List.getAssoc("deccoKey", eq),
             })
           | {tag: "StringMap", attrs} =>
             StringMap({
@@ -112,6 +119,7 @@ let formFromXmlAst = (xml: XmlDom.ast) => {
               ->List.getAssoc("empty", eq)
               ->getExn("'empty' in StringMap must be defined."),
               default: attrs->List.getAssoc("default", eq),
+              deccoKey: attrs->List.getAssoc("deccoKey", eq),
             })
           | _ => failwith("unknown field")
           }

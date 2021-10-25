@@ -8,6 +8,20 @@ let rec join = (list, sep) => {
 }
 
 let generateForm = (file: string, form: Config.form) => {
+  let deccoKeyAttr = (field: Config.field) => {
+    switch field {
+    | Object({deccoKey: Some(key)})
+    | List({deccoKey: Some(key)})
+    | StringMap({deccoKey: Some(key)})
+    | Scalar({deccoKey: Some(key)}) =>
+      ` @decco.key("${key}") `
+    | Object({deccoKey: None})
+    | List({deccoKey: None})
+    | StringMap({deccoKey: None})
+    | Scalar({deccoKey: None}) => ""
+    }
+  }
+
   let getNameFromField = (field: Config.field) => {
     switch field {
     | Object({name})
@@ -31,6 +45,8 @@ let generateForm = (file: string, form: Config.form) => {
     type t = {
 ${form.fields
       ->List.map(field => {
+        deccoKeyAttr(field) ++
+        " " ++
         switch field {
         | Object({name, type_, option: false}) => `${name}: ${type_}`
         | Object({name, type_, option: true}) => `${name}: option<${type_}>`

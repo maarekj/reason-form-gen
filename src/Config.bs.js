@@ -41,7 +41,8 @@ function formFromXmlAst(xml) {
                                 safeTransform: Belt_List.getAssoc(attrs, "safeTransform", eq),
                                 module_: Belt_List.getAssoc(attrs, "module", eq),
                                 empty: getExn(Belt_List.getAssoc(attrs, "empty", eq), "'empty' in List must be defined."),
-                                default: Belt_List.getAssoc(attrs, "default", eq)
+                                default: Belt_List.getAssoc(attrs, "default", eq),
+                                deccoKey: Belt_List.getAssoc(attrs, "deccoKey", eq)
                               };
                     case "Object" :
                         var attrs$1 = field.attrs;
@@ -54,7 +55,8 @@ function formFromXmlAst(xml) {
                                 module_: getExn(Belt_List.getAssoc(attrs$1, "module", eq), "'module' in Object must be defined."),
                                 empty: Belt_List.getAssoc(attrs$1, "empty", eq),
                                 default: Belt_List.getAssoc(attrs$1, "default", eq),
-                                option: Belt_Option.getWithDefault(Belt_List.getAssoc(attrs$1, "option", eq), "false") === "true"
+                                option: Belt_Option.getWithDefault(Belt_List.getAssoc(attrs$1, "option", eq), "false") === "true",
+                                deccoKey: Belt_List.getAssoc(attrs$1, "deccoKey", eq)
                               };
                     case "Scalar" :
                         var attrs$2 = field.attrs;
@@ -64,7 +66,8 @@ function formFromXmlAst(xml) {
                                 type_: getExn(Belt_List.getAssoc(attrs$2, "type", eq), "'type' in Scalar must be defined."),
                                 safeType: Belt_List.getAssoc(attrs$2, "safeType", eq),
                                 safeTransform: Belt_List.getAssoc(attrs$2, "safeTransform", eq),
-                                default: Belt_List.getAssoc(attrs$2, "default", eq)
+                                default: Belt_List.getAssoc(attrs$2, "default", eq),
+                                deccoKey: Belt_List.getAssoc(attrs$2, "deccoKey", eq)
                               };
                     case "StringMap" :
                         var attrs$3 = field.attrs;
@@ -76,7 +79,8 @@ function formFromXmlAst(xml) {
                                 safeTransform: Belt_List.getAssoc(attrs$3, "safeTransform", eq),
                                 module_: getExn(Belt_List.getAssoc(attrs$3, "module", eq), "'module' in StringMap must be defined."),
                                 empty: getExn(Belt_List.getAssoc(attrs$3, "empty", eq), "'empty' in StringMap must be defined."),
-                                default: Belt_List.getAssoc(attrs$3, "default", eq)
+                                default: Belt_List.getAssoc(attrs$3, "default", eq),
+                                deccoKey: Belt_List.getAssoc(attrs$3, "deccoKey", eq)
                               };
                     default:
                       return Pervasives.failwith("unknown field");
